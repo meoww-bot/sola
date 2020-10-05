@@ -32,15 +32,15 @@ const {
 
   // console.log("Creating file table if not exist");
   await knex.raw(`CREATE TABLE IF NOT EXISTS files (
-            path varchar(768) COLLATE utf8mb4_unicode_ci NOT NULL,
-            status enum('NEW','HASHING','HASHED','LOADING','LOADED') COLLATE utf8mb4_unicode_ci NOT NULL,
+            path varchar(768) COLLATE utf8mb4_bin NOT NULL,
+            status enum('NEW','HASHING','HASHED','LOADING','LOADED') COLLATE utf8mb4_bin NOT NULL,
             created datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (path),
             KEY status (status),
             KEY created (created),
             KEY updated (updated)
-          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;`);
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;`);
 
   console.log(`Scanning ${SOLA_FILE_PATH}`);
   const concurrency = 50;
