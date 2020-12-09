@@ -20,6 +20,8 @@ const hash = async (SOLA_FILE_PATH, SOLA_HASH_PATH, relativePath) => {
   fs.emptyDirSync(tempPath);
 
   console.log("Extracting thumbnails");
+  // ffmpeg -i xxx.mp4 -q:v 2 -an -vf fps=12,scale=-1:144,showinfo  ./%08d.jpg
+  // ffmpeg -i animation.gif.mp4 -q:v 2 -vframes 1 -an -vf fps=1 ./%08d.jpg
   const { stderr: ffmpegLog } = child_process.spawnSync(
     "ffmpeg",
     [
@@ -27,9 +29,11 @@ const hash = async (SOLA_FILE_PATH, SOLA_HASH_PATH, relativePath) => {
       mp4FilePath,
       "-q:v",
       2,
+      "-vframes",
+      1,
       "-an",
       "-vf",
-      "fps=12,scale=-1:144,showinfo",
+      "fps=1",
       `${tempPath}/%08d.jpg`,
     ],
     { encoding: "utf-8", maxBuffer: 1024 * 1024 * 100 }
