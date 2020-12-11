@@ -60,7 +60,7 @@ const load = (SOLA_HASH_PATH, relativePath, SOLA_SOLR_URL, SOLA_SOLR_CORE) =>
       "</add>",
     ].join("\n");
 
-    // fs.writeFileSync("debug.xml", xml);
+    fs.writeFileSync("debug.xml", xml);
 
     try {
       console.log("Deciding which solr core to upload");

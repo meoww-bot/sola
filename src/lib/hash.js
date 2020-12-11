@@ -60,6 +60,7 @@ const hash = async (SOLA_FILE_PATH, SOLA_HASH_PATH, relativePath) => {
   const lireSolrXMLPath = path.join(tempPath, "output.xml");
 
   // $ java -cp dist/lire.jar:liresolr/dist/liresolr.jar net.semanticmetadata.lire.solr.indexing.ParallelSolrIndexer -i val2014.txt -o val2014_all_plus_ms.xml -a -y "oh,sc,ce,fc,ac,ad,fo,jh"
+// java -cp docker/lire.jar:docker/liresolr.jar net.semanticmetadata.lire.solr.indexing.ParallelSolrIndexer -i file.txt -o file_34020.xml -n 16 -y "cl"  
   const { stdout, stderr } = child_process.spawnSync(
     "java",
     [
