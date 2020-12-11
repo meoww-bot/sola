@@ -30,7 +30,7 @@ const hash = async (SOLA_FILE_PATH, SOLA_HASH_PATH, relativePath) => {
       "-q:v",
       2,
       "-vframes",
-      2,
+      1,
       "-an",
       "-vf",
       "fps=1",
@@ -92,23 +92,24 @@ const hash = async (SOLA_FILE_PATH, SOLA_HASH_PATH, relativePath) => {
     "<add>",
     fs
       .readFileSync(lireSolrXMLPath, "utf-8")
-      .split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line.indexOf("<doc>") === 0)
-      .map((line) =>
-        line
-          .replace(/<field name="title">(.*?)<\/field>/g, "")
-          .replace(
-            /<field name="id">.*\/(.*?\.jpg)<\/field>/g,
-            (match, p1) => `<field name="id">${timeCodeList[thumbnailList.indexOf(p1)]}</field>`
-          )
-      )
-      .sort(
-        (a, b) =>
-          parseFloat(a.match(/<field name="id">(.*?)<\/field>/)[1]) -
-          parseFloat(b.match(/<field name="id">(.*?)<\/field>/)[1])
-      )
-      .join("\n"),
+      // .split("\n")
+      // .map((line) => line.trim())
+      // .filter((line) => line.indexOf("<doc>") === 0)
+      // .map((line) =>
+      //   line
+      //     .replace(/<field name="title">(.*?)<\/field>/g, "")
+      //     .replace(
+      //       /<field name="id">.*\/(.*?\.jpg)<\/field>/g,
+      //       (match, p1) => `<field name="id">${timeCodeList[thumbnailList.indexOf(p1)]}</field>`
+      //     )
+      // )
+      // .sort(
+      //   (a, b) =>
+      //     parseFloat(a.match(/<field name="id">(.*?)<\/field>/)[1]) -
+      //     parseFloat(b.match(/<field name="id">(.*?)<\/field>/)[1])
+      // )
+      // .join("\n")
+      ,
     "</add>",
   ].join("\n");
   // fs.writeFileSync("debug.xml", parsedXML);
