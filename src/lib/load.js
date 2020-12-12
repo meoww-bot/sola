@@ -19,28 +19,29 @@ const load = (SOLA_HASH_PATH, relativePath, SOLA_SOLR_URL, SOLA_SOLR_CORE) =>
       .map((doc) => {
         const fields = doc.children.filter((child) => child.name === "field");
         return {
-          time: parseFloat(fields.filter((field) => field.attr.name === "id")[0].val),
+          // time: parseFloat(fields.filter((field) => field.attr.name === "id")[0].val),
           cl_hi: fields.filter((field) => field.attr.name === "cl_hi")[0].val,
           cl_ha: fields.filter((field) => field.attr.name === "cl_ha")[0].val,
         };
       })
-      .sort((a, b) => a.time - b.time);
+      // .sort((a, b) => a.time - b.time);
 
-    const dedupedHashList = [];
-    hashList.forEach((currentFrame) => {
-      if (
-        !dedupedHashList
-          .slice(-24) // get last 24 frames
-          .filter((frame) => currentFrame.time - frame.time < 2) // select only frames within 2 sec
-          .some((frame) => frame.cl_hi === currentFrame.cl_hi) // check for exact match frames
-      ) {
-        dedupedHashList.push(currentFrame);
-      }
-    });
+    // const dedupedHashList = [];
+    // hashList.forEach((currentFrame) => {
+    //   if (
+    //     !dedupedHashList
+    //       .slice(-24) // get last 24 frames
+    //       .filter((frame) => currentFrame.time - frame.time < 2) // select only frames within 2 sec
+    //       .some((frame) => frame.cl_hi === currentFrame.cl_hi) // check for exact match frames
+    //   ) {
+    //     dedupedHashList.push(currentFrame);
+    //   }
+    // });
 
     const xml = [
       "<add>",
-      dedupedHashList
+      // dedupedHashList
+      hashList
         .map((doc) =>
           [
             "<doc>",
