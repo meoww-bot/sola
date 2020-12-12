@@ -101,7 +101,7 @@ const hash = async (SOLA_FILE_PATH, SOLA_HASH_PATH, relativePath) => {
           .replace(/<field name="title">(.*?)<\/field>/g, "")
           .replace(
             /<field name="id">.*\/(.*?\.jpg)<\/field>/g,
-            '<![CDATA[${relativePath}]]>'
+            `<field name="id"><![CDATA[${relativePath}]]></field>`
           )
       )
       // .sort(
