@@ -11,19 +11,19 @@ const load = (SOLA_HASH_PATH, relativePath, SOLA_SOLR_URL, SOLA_SOLR_CORE) =>
 
     console.log("Unzipping files");
     const zipFile = fs.readFileSync(zipFilePath);
-    const data = await lzma.decompress(zipFile);
+    const xml = await lzma.decompress(zipFile);
 
-    console.log("Parsing xml");
-    const hashList = new xmldoc.XmlDocument(data).children
-      .filter((child) => child.name === "doc")
-      .map((doc) => {
-        const fields = doc.children.filter((child) => child.name === "field");
-        return {
-          // time: parseFloat(fields.filter((field) => field.attr.name === "id")[0].val),
-          cl_hi: fields.filter((field) => field.attr.name === "cl_hi")[0].val,
-          cl_ha: fields.filter((field) => field.attr.name === "cl_ha")[0].val,
-        };
-      })
+    // console.log("Parsing xml");
+    // const hashList = new xmldoc.XmlDocument(data).children
+    //   .filter((child) => child.name === "doc")
+    //   .map((doc) => {
+    //     const fields = doc.children.filter((child) => child.name === "field");
+    //     return {
+    //       // time: parseFloat(fields.filter((field) => field.attr.name === "id")[0].val),
+    //       cl_hi: fields.filter((field) => field.attr.name === "cl_hi")[0].val,
+    //       cl_ha: fields.filter((field) => field.attr.name === "cl_ha")[0].val,
+    //     };
+    //   })
       // .sort((a, b) => a.time - b.time);
 
     // const dedupedHashList = [];
@@ -38,30 +38,30 @@ const load = (SOLA_HASH_PATH, relativePath, SOLA_SOLR_URL, SOLA_SOLR_CORE) =>
     //   }
     // });
 
-    const xml = [
-      "<add>",
-      // dedupedHashList
-      hashList
-        .map((doc) =>
-          [
-            "<doc>",
-            '<field name="id">',
-            `<![CDATA[${relativePath}/${doc.time.toFixed(2)}]]>`,
-            "</field>",
-            '<field name="cl_hi">',
-            doc.cl_hi,
-            "</field>",
-            '<field name="cl_ha">',
-            doc.cl_ha,
-            "</field>",
-            "</doc>",
-          ].join("")
-        )
-        .join("\n"),
-      "</add>",
-    ].join("\n");
+    // const xml = [
+    //   "<add>",
+    //   // dedupedHashList
+    //   hashList
+    //     .map((doc) =>
+    //       [
+    //         "<doc>",
+    //         '<field name="id">',
+    //         `<![CDATA[${relativePath}/${doc.time.toFixed(2)}]]>`,
+    //         "</field>",
+    //         '<field name="cl_hi">',
+    //         doc.cl_hi,
+    //         "</field>",
+    //         '<field name="cl_ha">',
+    //         doc.cl_ha,
+    //         "</field>",
+    //         "</doc>",
+    //       ].join("")
+    //     )
+    //     .join("\n"),
+    //   "</add>",
+    // ].join("\n");
 
-    fs.writeFileSync("debug.xml", xml);
+    // fs.writeFileSync("debug.xml", xml);
 
     try {
       console.log("Deciding which solr core to upload");
